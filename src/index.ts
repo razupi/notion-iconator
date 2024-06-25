@@ -7,24 +7,24 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-async function getPages(databaseId) {
+async function getPages(databaseId: string): Promise<any[]> {
   const pages = [];
-  let cursor = undefined;
+  let cursor: string | undefined = undefined;
 
   while (true) {
-    const { results, next_cursor } = await notion.databases.query({
+    const response = await notion.databases.query({
       database_id: databaseId,
       start_cursor: cursor,
     });
-    pages.push(...results);
-    if (!next_cursor) break;
-    cursor = next_cursor;
+    pages.push(...response.results);
+    if (!response.next_cursor) break;
+    cursor = response.next_cursor;
   }
 
   return pages;
 }
 
-async function updatePageIcon(pageId, iconUrl) {
+async function updatePageIcon(pageId: string, iconUrl: string): Promise<void> {
   await notion.pages.update({
     page_id: pageId,
     icon: {
@@ -38,7 +38,7 @@ async function updatePageIcon(pageId, iconUrl) {
 
 async function main() {
   const databaseId = "62fbf8b5a3bf46e8909ec7239df1a6c7";
-  const iconUrl = "😂";
+  const iconUrl = "https://example.com/icon.png";
 
   const pages = await getPages(databaseId);
   for (const page of pages) {
