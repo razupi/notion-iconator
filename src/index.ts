@@ -19,7 +19,7 @@ async function updatePageIconWithEmoji(pageId: string, emoji: any) {
 
 async function main() {
   const databaseId = "62fbf8b5a3bf46e8909ec7239df1a6c7";
-  const emoji = "🚀";
+  const emoji = "🥞";
 
   const response = await notion.databases.query({
     database_id: databaseId,
@@ -28,7 +28,6 @@ async function main() {
   for (const page of response.results) {
     await updatePageIconWithEmoji(page.id, emoji);
   }
-
 }
 
 main()
