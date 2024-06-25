@@ -1,4 +1,4 @@
-import { Client } from "@notionhq/client";
+import { Client, QueryDatabaseResponse } from "@notionhq/client";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -8,17 +8,17 @@ const notion = new Client({
 });
 
 async function getPages(databaseId: string): Promise<any[]> {
-  const pages = [];
-  let cursor: string | undefined = undefined;
+  const pages: any[] = [];
+  let cursor: string | null | undefined = undefined;
 
   while (true) {
-    const { results, next_cursor }: { results: any[], next_cursor?: string } = await notion.databases.query({
+    const response: QueryDatabaseResponse = await notion.databases.query({
       database_id: databaseId,
       start_cursor: cursor,
     });
-    pages.push(...results);
-    if (!next_cursor) break;
-    cursor = next_cursor;
+    pages.push(...response.results);
+    if (!response.next_cursor) break;
+    cursor = response.next_cursor;
   }
 
   return pages;
