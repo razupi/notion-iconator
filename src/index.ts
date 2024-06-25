@@ -12,7 +12,7 @@ async function getPages(databaseId: string): Promise<any[]> {
   let cursor: string | undefined = undefined;
 
   while (true) {
-    const response = await notion.databases.query({
+    const { results, next_cursor } = await notion.databases.query({
       database_id: databaseId,
       start_cursor: cursor,
     });
