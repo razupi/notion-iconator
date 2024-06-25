@@ -16,9 +16,9 @@ async function getPages(databaseId: string): Promise<any[]> {
       database_id: databaseId,
       start_cursor: cursor,
     });
-    pages.push(...response.results);
-    if (!response.next_cursor) break;
-    cursor = response.next_cursor;
+    pages.push(...results);
+    if (!next_cursor) break;
+    cursor = next_cursor;
   }
 
   return pages;
