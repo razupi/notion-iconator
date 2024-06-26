@@ -1,9 +1,12 @@
-import { Client } from '@notionhq/client';
-import { CreatePageParameters } from '@notionhq/client/build/src/api-endpoints';
+import { Client } from "@notionhq/client";
+import { CreatePageParameters } from "@notionhq/client/build/src/api-endpoints";
 import dotenv from "dotenv";
 
 // https://github.com/makenotion/notion-sdk-js/issues/280#issuecomment-1178523498
-export type EmojiRequest = Extract<CreatePageParameters['icon'], { type?: 'emoji'; }>['emoji'];
+export type EmojiRequest = Extract<
+  CreatePageParameters["icon"],
+  { type?: "emoji" }
+>["emoji"];
 
 dotenv.config();
 
