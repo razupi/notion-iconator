@@ -1,5 +1,9 @@
-import { Client } from "@notionhq/client";
+import { Client } from '@notionhq/client';
+import { CreatePageParameters } from '@notionhq/client/build/src/api-endpoints';
 import dotenv from "dotenv";
+
+// https://github.com/makenotion/notion-sdk-js/issues/280#issuecomment-1178523498
+export type EmojiRequest = Extract<CreatePageParameters['icon'], { type?: 'emoji'; }>['emoji'];
 
 dotenv.config();
 
@@ -7,7 +11,7 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
-async function updatePageIconWithEmoji(pageId: string, emoji: any) {
+async function updatePageIconWithEmoji(pageId: string, emoji: EmojiRequest) {
   await notion.pages.update({
     page_id: pageId,
     icon: {
@@ -19,7 +23,7 @@ async function updatePageIconWithEmoji(pageId: string, emoji: any) {
 
 async function main() {
   const databaseId = "62fbf8b5a3bf46e8909ec7239df1a6c7";
-  const emoji = "🥞";
+  const emoji = "🚀";
 
   const response = await notion.databases.query({
     database_id: databaseId,
