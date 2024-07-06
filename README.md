@@ -1,5 +1,5 @@
 # Notion Iconator
-This project updates the icons of all pages in a Notion database to a specified emoji using the Notion SDK.
+This project updates the icons of all pages in a Notion database to a specified emoji using the Notion SDK. However, the database icons can be set in bulk by right-clicking without using the API, so this program is mostly unnecessary. I realized that this feature had been added after creating the program... 😂
 ## Setup
 
 1. Create a `.env` file at the root of the repository and add:
